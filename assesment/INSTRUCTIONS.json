@@ -46,7 +46,7 @@
             {
               "object_notation": "COMMAND",
               "operator": "contains",
-              "expected_value": "forms"
+              "expected_value": "https://forms"
             }
           ],
           "join": "AND",

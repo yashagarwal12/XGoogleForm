@@ -11,6 +11,7 @@ import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -63,13 +64,14 @@ public class TestCases {
     @Test
 
     public void testCase01() throws InterruptedException {
-        //Navigate to Google Forms
-        driver.get(
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        // Navigated to the google form
+        driver.navigate().to(
                 "https://docs.google.com/forms/d/e/1FAIpQLSep9LTMntH5YqIXa5nkiPKSs283kdwitBBhXWyZdAS-e4CxBQ/viewform?pli=1");
 
         Thread.sleep(2000);
 
-        //Enter Name
+        // Enter Name
         WebElement name = driver.findElement(Name);
         wrap.sendkeys(name, "Crio Learner");
 
@@ -78,17 +80,17 @@ public class TestCases {
         long epoch = System.currentTimeMillis() / 1000;
         System.out.println(epoch);
 
-        //Enter the reason
+        // Enter the reason
         WebElement why = driver.findElement(why_q);
         wrap.sendkeys(why, "I want to be the best QA Engineer! " + epoch);
         Thread.sleep(1000);
 
-        //Select Experience
+        // Select Experience
         WebElement exp = driver.findElement(experience);
         wrap.clk(exp);
         Thread.sleep(1000);
 
-        //Select the skills
+        // Select the skills
         WebElement c1 = driver.findElement(choice1);
         wrap.clk(c1);
         Thread.sleep(1000);
@@ -101,7 +103,7 @@ public class TestCases {
         wrap.clk(c3);
         Thread.sleep(1000);
 
-        //Select the initial
+        // Select the initial
         WebElement li = driver.findElement(list);
         wrap.clk(li);
         Thread.sleep(1000);
@@ -120,7 +122,7 @@ public class TestCases {
 
         WebElement day = driver.findElement(date);
 
-        //Enter Date
+        // Enter Date
         wrap.sendkeys(day, formattedDate);
         Thread.sleep(1000);
 
@@ -129,7 +131,7 @@ public class TestCases {
         String formattedTime = lt.format(dtf);
         String[] split_time = formattedTime.split(":");
 
-        //Enter Time
+        // Enter Time
         WebElement hr = driver.findElement(hour);
         wrap.clk(hr);
         wrap.sendkeys(hr, split_time[0]);
@@ -141,20 +143,15 @@ public class TestCases {
         wrap.sendkeys(mi, split_time[1]);
         Thread.sleep(1000);
 
-        //Click on save
+        // Click on save
         WebElement save = driver.findElement(By.xpath("//div[@role='button' and @aria-label='Submit']"));
         wrap.clk(save);
 
         Thread.sleep(1000);
 
-        FluentWait<ChromeDriver> wait = new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(10))
-                .pollingEvery(Duration.ofMillis(500))
-                .ignoring(NoSuchElementException.class);
+        wait.until(ExpectedConditions.urlContains("formResponse"));
 
-            wait.until(ExpectedConditions.urlContains("formResponse"));
-
-        //Verify the response
+        // Verify the response
         WebElement verify_res = driver.findElement(By.xpath("//div[@class='RH5hzf RLS9Fe']//div[@class='vHW8K']"));
         System.out.println(verify_res.getText());
 
