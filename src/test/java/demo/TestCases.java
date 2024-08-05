@@ -66,8 +66,8 @@ public class TestCases {
     public void testCase01() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         // Navigated to the google form
-        driver.navigate().to(
-                "https://docs.google.com/forms/d/e/1FAIpQLSep9LTMntH5YqIXa5nkiPKSs283kdwitBBhXWyZdAS-e4CxBQ/viewform?pli=1");
+        driver.get(
+                "https://forms.gle/wjPkzeSEk1CM7KgGA");
 
         Thread.sleep(2000);
 
